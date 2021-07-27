@@ -15,6 +15,8 @@ namespace calculatorapp
         double value = 0;
         string operation = "";
         bool operation_pressed = false;
+        string o = "";
+        int x=0;
         public Form1()
         {
             InitializeComponent();
@@ -24,7 +26,7 @@ namespace calculatorapp
         {
 
         }
-
+       
         private void button_click(object sender, EventArgs e)
         {
             if ((textBox1.Text=="0")||(operation_pressed))
@@ -36,9 +38,48 @@ namespace calculatorapp
 
         private void operator_click(object sender, EventArgs e)
         {
+            
+            
             Button button = (Button)sender;
             operation = button.Text;
-            value = double.Parse(textBox1.Text);
+            
+            switch (operation)
+            {
+                case "+":
+                    o = "+";
+                    value += double.Parse(textBox1.Text);
+                    textBox1.Text = null;
+                    break;
+                case "-":
+                    o = "-";
+                    if(x==0)
+                        value += double.Parse(textBox1.Text);
+                    else
+                    value -= double.Parse(textBox1.Text);
+                    textBox1.Text = null;
+                    break;
+                case "*":
+                    o = "*";
+                    if (value==0)
+                    value = double.Parse(textBox1.Text);
+                    else
+                        value *= double.Parse(textBox1.Text);
+                    textBox1.Text = null;
+                    x++;
+                    break;
+                case "/":
+                    o = "/";
+                    if (value == 0)
+                        value = double.Parse(textBox1.Text);
+                    else
+                        value /= double.Parse(textBox1.Text);
+                    textBox1.Text = null;
+                    break;
+                
+
+            }
+            //value = double.Parse(textBox1.Text);
+            
             operation_pressed = true;
             label2.Text = value + " " + operation;
         }
@@ -57,15 +98,19 @@ namespace calculatorapp
             {
                 case "+": 
                     textBox1.Text=(value+ double.Parse(textBox1.Text)).ToString();
+                    value = 0;
                     break;
                 case "-":
                     textBox1.Text = (value - double.Parse(textBox1.Text)).ToString();
+                    value = 0;
                     break;
                 case "/":
                     textBox1.Text = (value / double.Parse(textBox1.Text)).ToString();
+                    value = 0;
                     break;
                 case "*":
                     textBox1.Text = (value * double.Parse(textBox1.Text)).ToString();
+                    value = 0;
                     break;
                 case "cos":
                     value = 0;
